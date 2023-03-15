@@ -6,23 +6,23 @@ namespace CorreiosTestes.StepDefinitions.App.Endereco
     [Binding]
     public class CepIndexSteps
     {
-        CepIndexPage indexPage;
+        CepIndexPage _indexPage;
 
         public CepIndexSteps(CepIndexPage indexPage)
         {
-            this.indexPage = indexPage;
+            _indexPage = indexPage;
         }
 
         [Given(@"acessar a pagina de buca por cep")]
         public void AcessarAPaginaDeBucaPorCep()
         {
-            indexPage.AcessarSistema();
+            _indexPage.AcessarSistema();
         }
 
         [When(@"realizar a busca do CEP (.*), (.*)")]
         public void RealizarABuscaDoCEP(string cep, string tipo)
         {
-            indexPage.BuscarCep(cep, tipo);
+            _indexPage.BuscarCep(cep, tipo);
         }
 
         [Then(@"validar o retorno (.*), (.*), (.*), (.*), (.*)")]
@@ -30,7 +30,7 @@ namespace CorreiosTestes.StepDefinitions.App.Endereco
         {
             if (String.IsNullOrEmpty(informacao))
             {
-                dynamic dados = indexPage.DadosBusca();
+                dynamic dados = _indexPage.DadosBusca();
 
                 Assert.That(logradouro, Is.EqualTo((string)dados.logradouro));
                 Assert.That(bairro, Is.EqualTo((string)dados.bairro));
@@ -39,7 +39,7 @@ namespace CorreiosTestes.StepDefinitions.App.Endereco
             }
             else
             {
-                Assert.That(informacao, Is.EqualTo(indexPage.Alert()));
+                Assert.That(informacao, Is.EqualTo(_indexPage.Alert()));
             }
         }
 

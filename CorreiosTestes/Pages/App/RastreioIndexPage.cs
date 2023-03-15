@@ -6,7 +6,7 @@ namespace CorreiosTestes.Pages.App
     [Binding]
     public class RastreioIndexPage
     {
-        string _url = "https://rastreamento.correios.com.br/app/index.php";
+        string _url;
 
         By _inputCodigo = By.Id("objeto");
         By _btnBuscar = By.Id("b-pesquisar");
@@ -14,9 +14,10 @@ namespace CorreiosTestes.Pages.App
 
         SeleniumDsl _seleniumDsl;
 
-        public RastreioIndexPage(SeleniumDsl seleniumDsl)
+        public RastreioIndexPage(SeleniumDsl seleniumDsl, ScenarioContext scenarioContext)
         {
             _seleniumDsl = seleniumDsl;
+            _url = (string)scenarioContext["urlRastreio"];
         }
 
         public void AcessarSistema()

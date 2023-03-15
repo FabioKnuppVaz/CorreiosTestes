@@ -7,7 +7,7 @@ namespace CorreiosTestes.Pages.App.Endereco
     [Binding]
     public class CepIndexPage
     {
-        static string _url = "https://buscacepinter.correios.com.br/app/endereco/index.php";
+        string _url;
 
         By _inputCep = By.Id("endereco");
         By _selectTipo = By.CssSelector("#tipoCEP");
@@ -23,9 +23,10 @@ namespace CorreiosTestes.Pages.App.Endereco
 
         SeleniumDsl _seleniumDsl;
 
-        public CepIndexPage(SeleniumDsl seleniumDsl)
+        public CepIndexPage(SeleniumDsl seleniumDsl, ScenarioContext scenarioContext)
         {
             _seleniumDsl = seleniumDsl;
+            _url = (string)scenarioContext["urlCep"];
         }
 
         public void AcessarSistema()

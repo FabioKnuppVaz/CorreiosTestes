@@ -8,9 +8,9 @@ namespace SpecFlowExample.Core
     {
         IWebDriver _webDriver;
 
-        public void SetWebDriver()
+        public void SetChromeDriver(string path)
         {
-            _webDriver = new ChromeDriver("C:\\Users\\fabio\\Downloads\\chromedriver");
+            _webDriver = new ChromeDriver(path);
             _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(25);
             _webDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(25);
             _webDriver.Manage().Window.Maximize();
