@@ -91,7 +91,4 @@ Funcionalidade: Busca de CEP
 O framework trabalha com injecao de dependencia podendo ser carregado os dados assim como as url's utilizando o objeto [ScenarioContext](https://docs.specflow.org/projects/specflow/en/latest/Bindings/ScenarioContext.html)
 
 ## Execução dos teste  ##
-Utilizar o gerenciador de testes do visual studio
-![image](https://user-images.githubusercontent.com/16068350/225189339-91d404e3-5153-4db1-80f7-8c517cff40ba.png)
-
-Ou utilizar tanto comando do nunit de console ou specflow.
+Utilizar o gerenciador de testes do visual studio ou utilizar tanto comando do nunit de console ou specflow.
