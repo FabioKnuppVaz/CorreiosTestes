@@ -25,7 +25,7 @@
      └── Camada de acoplamento do arquivo de regra de negocio com codigo e validacoes com assertivas
 ```
 
-## Fuxo de desenvolvimento de debug ##
+## Fuxo de desenvolvimento e debug ##
 ```
 BDD
  └── Hooks
