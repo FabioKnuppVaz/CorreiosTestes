@@ -26,9 +26,9 @@ namespace CorreiosTestes.StepDefinitions.App.Endereco
         }
 
         [Then(@"validar o retorno (.*), (.*), (.*), (.*), (.*)")]
-        public void VerificarORetorno(string cep, string logradouro, string bairro, string localidade, string informacao)
+        public void VerificarORetorno(string cep, string logradouro, string bairro, string localidade, string alert)
         {
-            if (String.IsNullOrEmpty(informacao))
+            if (String.IsNullOrEmpty(alert))
             {
                 dynamic dados = _indexPage.DadosBusca();
 
@@ -39,7 +39,7 @@ namespace CorreiosTestes.StepDefinitions.App.Endereco
             }
             else
             {
-                Assert.That(informacao, Is.EqualTo(_indexPage.Alert()));
+                Assert.That(alert, Is.EqualTo(_indexPage.Alert()));
             }
         }
 

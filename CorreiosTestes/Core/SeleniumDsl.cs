@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SpecFlowExample.Core;
+using SeleniumExtras.WaitHelpers;
 
 namespace CorreiosTestes.Core
 {
@@ -22,6 +23,7 @@ namespace CorreiosTestes.Core
 
         public SeleniumDsl FindElement(By by)
         {
+            WaitVisible(by);
             _iWebElement = _webDriver.FindElement(by);
             return this;
         }
@@ -44,18 +46,15 @@ namespace CorreiosTestes.Core
             return this;
         }
 
+        public void WaitVisible(By by)
+        {
+            WebDriverWait wait = new (_webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(ExpectedConditions.ElementIsVisible(by));
+        }
+
         public string Text()
         {
-            string text = "";
-            int retry = 0;
-
-            while (String.IsNullOrEmpty(text) || retry <= 100)
-            {
-                text = _iWebElement.Text;
-                retry++;
-            }
-
-            return text;
+            return _iWebElement.Text;
         }
     }
 }

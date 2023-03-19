@@ -26,7 +26,7 @@ namespace CorreiosTestes.Pages.App.Endereco
         public CepIndexPage(SeleniumDsl seleniumDsl, ScenarioContext scenarioContext)
         {
             _seleniumDsl = seleniumDsl;
-            _url = (string)scenarioContext["urlCep"];
+            _url = scenarioContext.Get<dynamic>("env").urlCep;
         }
 
         public void AcessarSistema()

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using CorreiosTestes.Core;
 using SpecFlowExample.Core;
 
 namespace SpecFlowExample.Hooks
@@ -8,11 +8,14 @@ namespace SpecFlowExample.Hooks
     {
         WebDriverFactory _webDriverFactory;
         ScenarioContext _scenarioContext;
+        JsonParse _jsonParse;
+        dynamic _env;
 
-        public Hooks(WebDriverFactory webDriverFactory, ScenarioContext scenarioContext)
+        public Hooks(WebDriverFactory webDriverFactory, ScenarioContext scenarioContext, JsonParse jsonParse)
         {
             _webDriverFactory = webDriverFactory;
             _scenarioContext = scenarioContext;
+            _jsonParse = jsonParse;
         }
 
         [BeforeScenario]
@@ -22,12 +25,15 @@ namespace SpecFlowExample.Hooks
 
             envVar ??= "dev";
 
-            string json = File.ReadAllText("../../../" + envVar + ".json");
-            dynamic env = JObject.Parse(json);
+            _env = _jsonParse.ToDynamic("../../../" + envVar + ".json");
 
-            _scenarioContext["urlCep"] = (string)env["urlCep"];
-            _scenarioContext["urlRastreio"] = (string)env["urlRastreio"];
-            _webDriverFactory.SetChromeDriver((string)env["pathChromedriver"]);
+            _scenarioContext["env"] = _env;
+        }
+
+        [BeforeScenario("CHROME")]
+        public void Chrome()
+        {
+            _webDriverFactory.SetDriver(Drivers.CHROMEDRIVER, (string)_env.pathChromedriver);
         }
 
         [AfterScenario]

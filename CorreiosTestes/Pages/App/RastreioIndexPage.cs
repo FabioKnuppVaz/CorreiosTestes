@@ -17,7 +17,7 @@ namespace CorreiosTestes.Pages.App
         public RastreioIndexPage(SeleniumDsl seleniumDsl, ScenarioContext scenarioContext)
         {
             _seleniumDsl = seleniumDsl;
-            _url = (string)scenarioContext["urlRastreio"];
+            _url = scenarioContext.Get<dynamic>("env").urlRastreio;
         }
 
         public void AcessarSistema()
