@@ -8,12 +8,12 @@ namespace CorreiosTestes.Core
     [Binding]
     public class SeleniumDsl
     {
-        IWebDriver _webDriver;
-        IWebElement _iWebElement;
+        private IWebDriver _webDriver;
+        private IWebElement _iWebElement;
 
         public SeleniumDsl(WebDriverFactory webDriverFactory)
         {
-            _webDriver = webDriverFactory.GetWebDriver();
+            _webDriver = webDriverFactory.WebDriver;
         }
 
         public void GoToUrl(string url)

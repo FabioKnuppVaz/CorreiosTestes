@@ -1,41 +1,35 @@
 ﻿using CorreiosTestes.Core;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System.IO;
 
 namespace SpecFlowExample.Core
 {
     [Binding]
     public class WebDriverFactory
     {
-        IWebDriver _webDriver;
+        public IWebDriver WebDriver { get; set; }
 
         public void SetDriver(Drivers drivers, string path)
         {
             switch (drivers)
             {
                 case Drivers.CHROMEDRIVER:
-                    SetChromeDriver(path);
+                    ChromeDriver(path);
                     break;
             }
         }
 
-        private void SetChromeDriver(string path)
+        private void ChromeDriver(string path)
         {
-            _webDriver = new ChromeDriver(path);
-            _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(25);
-            _webDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(25);
-            _webDriver.Manage().Window.Maximize();
-        }
-
-        public IWebDriver GetWebDriver()
-        {
-            return _webDriver;
+            WebDriver = new ChromeDriver(path);
+            WebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(25);
+            WebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(25);
+            WebDriver.Manage().Window.Maximize();
         }
 
         public void Quit()
         {
-            _webDriver.Quit();
+            WebDriver.Quit();
         }
     }
 }

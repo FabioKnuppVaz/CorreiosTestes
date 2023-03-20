@@ -6,28 +6,24 @@ namespace SpecFlowExample.Hooks
     [Binding]
     public class Hooks
     {
-        WebDriverFactory _webDriverFactory;
-        ScenarioContext _scenarioContext;
-        JsonParse _jsonParse;
-        dynamic _env;
+        private WebDriverFactory _webDriverFactory;
+        private dynamic _env;
 
-        public Hooks(WebDriverFactory webDriverFactory, ScenarioContext scenarioContext, JsonParse jsonParse)
+        public Hooks(WebDriverFactory webDriverFactory)
         {
             _webDriverFactory = webDriverFactory;
-            _scenarioContext = scenarioContext;
-            _jsonParse = jsonParse;
         }
 
         [BeforeScenario]
-        public void Setup()
+        public void Setup(JsonParse jsonParse, ScenarioContext scenarioContext)
         {
             string envVar = Environment.GetEnvironmentVariable("AMBIENTE");
 
             envVar ??= "dev";
 
-            _env = _jsonParse.ToDynamic("../../../" + envVar + ".json");
+            _env = jsonParse.ToDynamic("../../../" + envVar + ".json");
 
-            _scenarioContext["env"] = _env;
+            scenarioContext["env"] = _env;
         }
 
         [BeforeScenario("CHROME")]

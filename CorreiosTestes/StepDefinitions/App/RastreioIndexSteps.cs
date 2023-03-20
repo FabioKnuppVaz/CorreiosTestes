@@ -6,7 +6,7 @@ namespace CorreiosTestes.StepDefinitions.App
     [Binding]
     public class RastreioIndexSteps
     {
-        RastreioIndexPage _rastreioIndexPage;
+        private RastreioIndexPage _rastreioIndexPage;
 
         public RastreioIndexSteps(RastreioIndexPage rastreioIndexPage)
         {

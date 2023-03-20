@@ -6,7 +6,7 @@ namespace CorreiosTestes.StepDefinitions.App.Endereco
     [Binding]
     public class CepIndexSteps
     {
-        CepIndexPage _indexPage;
+        private CepIndexPage _indexPage;
 
         public CepIndexSteps(CepIndexPage indexPage)
         {

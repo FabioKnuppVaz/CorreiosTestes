@@ -7,21 +7,21 @@ namespace CorreiosTestes.Pages.App.Endereco
     [Binding]
     public class CepIndexPage
     {
-        string _url;
+        private string _url;
 
-        By _inputCep = By.Id("endereco");
-        By _selectTipo = By.CssSelector("#tipoCEP");
-        By _btnBuscar = By.XPath("//button[contains(text(), 'Buscar')]");
+        private static By _inputCep = By.Id("endereco");
+        private static By _selectTipo = By.CssSelector("#tipoCEP");
+        private static By _btnBuscar = By.XPath("//button[contains(text(), 'Buscar')]");
 
-        static string _dadosLocator = "//table[@id='resultado-DNEC']/tbody/tr/td";
-        By _lblLogradouro = By.XPath(_dadosLocator + "[1]");
-        By _lblBairro = By.XPath(_dadosLocator + "[2]");
-        By _lblLocalidade = By.XPath(_dadosLocator + "[3]");
-        By _lblCep = By.XPath(_dadosLocator + "[4]");
+        private static string _dadosLocator = "//table[@id='resultado-DNEC']/tbody/tr/td";
+        private static By _lblLogradouro = By.XPath(_dadosLocator + "[1]");
+        private static By _lblBairro = By.XPath(_dadosLocator + "[2]");
+        private static By _lblLocalidade = By.XPath(_dadosLocator + "[3]");
+        private static By _lblCep = By.XPath(_dadosLocator + "[4]");
 
-        By _lblAlert = By.Id("mensagem-resultado-alerta");
+        private static By _lblAlert = By.Id("mensagem-resultado-alerta");
 
-        SeleniumDsl _seleniumDsl;
+        private SeleniumDsl _seleniumDsl;
 
         public CepIndexPage(SeleniumDsl seleniumDsl, ScenarioContext scenarioContext)
         {
