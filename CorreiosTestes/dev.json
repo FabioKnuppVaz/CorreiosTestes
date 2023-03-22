@@ -1,5 +1,5 @@
 {
 	"urlCep": "https://buscacepinter.correios.com.br/app/endereco/index.php",
 	"urlRastreio": "https://rastreamento.correios.com.br/app/index.php",
-	"pathChromedriver": "C:\\chromedriver\\chromedriver"
+	"pathChromedriver": ".\\chromedriver"
 }
