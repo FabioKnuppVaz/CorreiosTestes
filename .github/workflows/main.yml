@@ -1,24 +1,18 @@
-name: dotnet package
-
-on: [push]
-
+on: push
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
+  test:
     strategy:
       matrix:
-        dotnet-version: [ '6.0.x' ]
-
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
-      - name: Install dependencies
-        run: dotnet restore
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
-      - name: Test
-        run: dotnet test --no-restore --verbosity normal
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - run: npm install-ci-test
+    - uses:
+  publish:
+    needs: [test]
+    steps:
+    - uses: actions/checkout@v3
