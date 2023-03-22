@@ -8,10 +8,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Setup .NET Core SDK 7.0.x
+      - name: Setup .NET Core SDK 6.0.x
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '6.0.x'
+      - name:  Install Google Chrome
+        run: chmod +x ./scripts/InstallChrome.sh ./scripts/InstallChrome.sh 
       - name: Install dependencies
         run: dotnet restore
       - name: Build
