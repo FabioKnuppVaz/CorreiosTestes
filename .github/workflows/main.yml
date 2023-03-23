@@ -18,8 +18,8 @@ jobs:
         run: sudo apt install -y chromium-browser
       - shell: bash
         run: |
-            chmod +x ./Scripts/download.sh
-                     ./Scripts/download.sh
+            chmod +x ./download.sh
+                     ./download.sh
       - name: Install dependencies
         run: dotnet restore
       - name: Build
