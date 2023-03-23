@@ -1,4 +1,4 @@
-name: dotnet package
+name: dotnet tests
 
 on: [push]
 
@@ -14,7 +14,7 @@ jobs:
                      ./CorreiosTestes/Scripts/download.sh
       - name: Remove Chrome
         run: sudo apt purge google-chrome-stable
-      - name: Install Google Chrome
+      - name: Install Chromium
         run: sudo apt install -y chromium-browser
       - name: Setup .NET Core SDK 6.0.x
         uses: actions/setup-dotnet@v3
