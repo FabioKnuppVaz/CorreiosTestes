@@ -12,6 +12,10 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
+      - name: Remove Chrome
+        run: sudo apt purge google-chrome-stable
+      - name: Remove default Chromium
+        run: sudo apt purge chromium-browser
       - name:  Install Google Chrome
         run: sudo apt install -y chromium-browser
       - name: Install dependencies
