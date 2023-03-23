@@ -25,6 +25,7 @@ namespace SpecFlowExample.Core
             chromeOptions.AddArguments("--no-sandbox");
             chromeOptions.AddArguments("--disable-dev-shm-usage");
             chromeOptions.AddArguments("--headless");
+            chromeOptions.AddArguments("--remote-allow-origins=*");
 
             WebDriver = new ChromeDriver(path, chromeOptions);
             WebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(25);
