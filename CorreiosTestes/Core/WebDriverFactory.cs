@@ -21,7 +21,12 @@ namespace SpecFlowExample.Core
 
         private void ChromeDriver(string path)
         {
-            WebDriver = new ChromeDriver(path);
+            ChromeOptions chromeOptions = new();
+            chromeOptions.AddArguments("--no-sandbox");
+            chromeOptions.AddArguments("--disable-dev-shm-usage");
+            chromeOptions.AddArguments("--headless");
+
+            WebDriver = new ChromeDriver(path, chromeOptions);
             WebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(25);
             WebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(25);
             WebDriver.Manage().Window.Maximize();
