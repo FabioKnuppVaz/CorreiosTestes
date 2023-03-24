@@ -33,7 +33,7 @@ jobs:
       - name: Build
         run: dotnet build
       - name: Set variable
-        if: $TAG == null
-        run: $TAG = CHROME
+        if: ${{ env.TAG == null }}
+        run: ${{ env.TAG }} = 'CHROME'
       - name: Test
         run: 'dotnet test --filter Category=${{ github.event.inputs.specflow_tags }}'
