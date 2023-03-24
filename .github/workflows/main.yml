@@ -12,10 +12,6 @@ jobs:
         run: |
             chmod +x ./CorreiosTestes/Scripts/download.sh
                      ./CorreiosTestes/Scripts/download.sh
-      - name: Remove Chrome
-        run: sudo apt purge google-chrome-stable
-      - name: Install Chromium
-        run: sudo apt install -y chromium-browser
       - name: Setup .NET Core SDK 6.0.x
         uses: actions/setup-dotnet@v3
         with:
