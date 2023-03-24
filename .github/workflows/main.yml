@@ -6,7 +6,7 @@ on:
       specflow_tags:
         description: 'Specflow Tags'
         required: true
-        default: 'chrome'
+        default: 'CHROME'
 
 jobs:
   build:
