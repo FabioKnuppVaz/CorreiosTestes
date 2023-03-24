@@ -29,9 +29,9 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build
-      - name: Set variable
+      - name: Automatic commit test
         if: ${{ env.TAG == null }}
         run: 'dotnet test --filter Category=CHROME'
-      - name: Test
+      - name: Manual Test
         if: ${{ env.TAG != null }}
         run: 'dotnet test --filter Category=${{ github.event.inputs.specflow_tags }}'
