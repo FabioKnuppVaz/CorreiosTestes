@@ -34,6 +34,6 @@ jobs:
         run: dotnet build
       - name: Set variable
         if: ${{ env.TAG == null }}
-        run: ${{ env.TAG }} = 'CHROME'
+        run: $TAG = 'CHROME'
       - name: Test
         run: 'dotnet test --filter Category=${{ github.event.inputs.specflow_tags }}'
