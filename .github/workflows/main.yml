@@ -1,6 +1,13 @@
 name: dotnet tests
 
 on: [push]
+on:
+  workflow_dispatch:
+    inputs:
+      specflow_tags:
+        description: 'Specflow Tags'
+        required: true
+        default: 'chrome'
 
 jobs:
   build:
@@ -16,9 +23,9 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
-      - name: Install dependencies
+      - name: Restore
         run: dotnet restore
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build
       - name: Test
-        run: dotnet test --no-restore --verbosity normal
+        run: 'dotnet test --filter Category=${{ github.event.inputs.specflow_tags }}'
