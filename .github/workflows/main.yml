@@ -30,8 +30,8 @@ jobs:
       - name: Build
         run: dotnet build
       - name: Automatic commit test
-        if: ${{ env.TAG == null }}
+        if: ${{ env.TAG == '' }}
         run: 'dotnet test --filter Category=CHROME'
       - name: Manual Test
-        if: ${{ env.TAG != null }}
+        if: ${{ env.TAG != '' }}
         run: 'dotnet test --filter Category=${{ github.event.inputs.specflow_tags }}'
