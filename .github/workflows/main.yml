@@ -1,5 +1,8 @@
 name: 'Dotnet Tests'
 
+env:
+  TAG: ${{ github.event.inputs.specflow_tags }}
+
 on:
   workflow_dispatch:
     inputs:
@@ -30,7 +33,7 @@ jobs:
       - name: Build
         run: dotnet build
       - name: Set variable
-        if: ${{ github.event.inputs.specflow_tags == null }}
-        run: ${{ github.event.inputs.specflow_tags }} = CHROME
+        if: TAG == null
+        run: TAG = CHROME
       - name: Test
         run: 'dotnet test --filter Category=${{ github.event.inputs.specflow_tags }}'
