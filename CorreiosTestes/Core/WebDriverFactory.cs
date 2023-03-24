@@ -1,6 +1,7 @@
 ﻿using CorreiosTestes.Core;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 
 namespace SpecFlowExample.Core
 {
@@ -21,13 +22,14 @@ namespace SpecFlowExample.Core
 
         private void ChromeDriver(string path)
         {
-            ChromeOptions chromeOptions = new();
-            chromeOptions.AddArguments("--no-sandbox");
-            chromeOptions.AddArguments("--disable-dev-shm-usage");
-            chromeOptions.AddArguments("--headless");
-            chromeOptions.AddArguments("--remote-allow-origins=*");
+            var service = ChromeDriverService.CreateDefaultService(path);
+            service.Port = 40000;
+            service.Start();
 
-            WebDriver = new ChromeDriver(path, chromeOptions);
+            ChromeOptions chromeOptions = new();
+            chromeOptions.AddArguments("--headless");
+
+            WebDriver = new ChromeDriver(service, chromeOptions);
             WebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(25);
             WebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(25);
             WebDriver.Manage().Window.Maximize();
