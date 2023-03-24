@@ -1,5 +1,3 @@
-name: dotnet tests
-
 on:
   workflow_dispatch:
     inputs:
@@ -7,6 +5,8 @@ on:
         description: 'Specflow Tags'
         required: true
         default: 'CHROME'
+
+name: 'Testes via tag ${{ github.event.inputs.specflow_tags }}'
 
 jobs:
   build:
