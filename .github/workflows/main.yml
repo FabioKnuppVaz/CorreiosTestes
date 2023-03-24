@@ -29,5 +29,8 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build
+      - name: Set variable
+        if: ${{ github.event.inputs.specflow_tags == null }}
+        run: github.event.inputs.specflow_tags = CHROME
       - name: Test
         run: 'dotnet test --filter Category=${{ github.event.inputs.specflow_tags }}'
