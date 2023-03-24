@@ -1,6 +1,6 @@
 name: dotnet tests
 
-on: [push]
+on:
   workflow_dispatch:
     inputs:
       specflow_tags:
