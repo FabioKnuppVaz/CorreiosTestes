@@ -57,7 +57,7 @@ Dentro do arquivo temos as urls utilizadas na navegacao e o diretorio onde esta 
 ```
 O chromedriver nao foi versionado por ser um arquivo executavel e a versao do seu navegador depende de uma versao compativel do chromedriver. Portanto e mais viavel o download direto e a extracao no diretorio que pode ser configuravel.
 
-No github actions temos o acionammennto do script main.yml em .github\workflows que realizará a versão mais recente do chromedriver, e logo em seguida irá instalar a versão mais atual do navegador.
+No github actions temos o acionamento do script main.yml em .github\workflows que realizará a versão mais recente do chromedriver, e logo em seguida irá instalar a versão mais atual do navegador.
 ```
 name: 'Dotnet Tests'
 
@@ -97,6 +97,8 @@ jobs:
         if: ${{ github.event.inputs.specflow_tags != '' }}
         run: 'dotnet test --filter Category=${{ github.event.inputs.specflow_tags }}'
 ```
+O script roda automaticamente a cada push na branch master. Também é possivel rodar os testes manualmente seguindo caminho do github actions em "Actions -> Dotnet Tests -> Run workflow". 
+Por default é chamado a tag "Chrome" mas pode ser substituido por exemplo por "SMOKE".
 
 ## Parametrizacao dos testes  ##
 Sao realizadas as parametrizacoes nos arquivos de feature
