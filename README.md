@@ -59,6 +59,19 @@ O chromedriver nao foi versionado por ser um arquivo executavel e a versao do se
 
 No github actions temos o acionammennto do script main.yml em .github\workflows que realizará a versão mais recente do chromedriver, e logo em seguida irá instalar a versão mais atual do navegador.
 ```
+name: 'Dotnet Tests'
+
+on:
+  workflow_dispatch:
+    inputs:
+      specflow_tags:
+        description: 'Specflow Tags'
+        required: true
+        default: 'CHROME'
+  push:
+    branches:
+      - master
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -69,20 +82,20 @@ jobs:
         run: |
             chmod +x ./CorreiosTestes/Scripts/download.sh
                      ./CorreiosTestes/Scripts/download.sh
-      - name: Remove Chrome
-        run: sudo apt purge google-chrome-stable
-      - name: Install Google Chrome
-        run: sudo apt install -y chromium-browser
       - name: Setup .NET Core SDK 6.0.x
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
-      - name: Install dependencies
+      - name: Restore
         run: dotnet restore
       - name: Build
-        run: dotnet build --configuration Release --no-restore
-      - name: Test
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet build
+      - name: Automatic commit test
+        if: ${{ github.event.inputs.specflow_tags == '' }}
+        run: 'dotnet test --filter Category=CHROME'
+      - name: Manual Test
+        if: ${{ github.event.inputs.specflow_tags != '' }}
+        run: 'dotnet test --filter Category=${{ github.event.inputs.specflow_tags }}'
 ```
 
 ## Parametrizacao dos testes  ##
