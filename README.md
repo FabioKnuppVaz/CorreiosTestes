@@ -57,48 +57,53 @@ Dentro do arquivo temos as urls utilizadas na navegacao e o diretorio onde esta 
 ```
 O chromedriver nao foi versionado por ser um arquivo executavel e a versao do seu navegador depende de uma versao compativel do chromedriver. Portanto e mais viavel o download direto e a extracao no diretorio que pode ser configuravel.
 
-No github actions temos o acionamento do script main.yml em .github\workflows que realizará a versão mais recente do chromedriver, e logo em seguida irá instalar a versão mais atual do navegador.
+No github actions temos o acionamento do script main.yml em .github\workflows que realizará o download automático da versão mais recente do chromedriver no diretório do projeto.
+
+download.sh
 ```
-name: 'Dotnet Tests'
+	#!/bin/bash
 
-on:
-  workflow_dispatch:
-    inputs:
-      specflow_tags:
-        description: 'Specflow Tags'
-        required: true
-        default: 'CHROME'
-  push:
-    branches:
-      - master
+	PLATFORM=linux64
+	VERSION=$(curl http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+	curl http://chromedriver.storage.googleapis.com/$VERSION/chromedriver_$PLATFORM.zip -LOk
+	unzip chromedriver_*
+	rm chromedriver_*
+```
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
+main.yml
+```
     steps:
       - uses: actions/checkout@v3
       - shell: bash
         run: |
             chmod +x ./CorreiosTestes/Scripts/download.sh
                      ./CorreiosTestes/Scripts/download.sh
-      - name: Setup .NET Core SDK 6.0.x
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.x'
-      - name: Restore
-        run: dotnet restore
-      - name: Build
-        run: dotnet build
-      - name: Automatic commit test
-        if: ${{ github.event.inputs.specflow_tags == '' }}
-        run: 'dotnet test --filter Category=CHROME'
-      - name: Manual Test
-        if: ${{ github.event.inputs.specflow_tags != '' }}
-        run: 'dotnet test --filter Category=${{ github.event.inputs.specflow_tags }}'
 ```
+
 O script roda automaticamente a cada push na branch master. Também é possivel rodar os testes manualmente seguindo caminho do github actions em "Actions -> Dotnet Tests -> Run workflow". 
-Por default é chamado a tag "Chrome" mas pode ser substituido por exemplo por "SMOKE".
+```
+	on:
+	  workflow_dispatch:
+	    inputs:
+	      specflow_tags:
+		description: 'Specflow Tags'
+		required: true
+		default: 'CHROME'
+	  push:
+	    branches:
+	      - master
+```
+
+Por default é chamado a tag "Chrome" mas pode ser substituido por outras tags escritas como por exemplo "SMOKE" que está nas features.
+
+```
+	- name: Automatic commit test
+	if: ${{ github.event.inputs.specflow_tags == '' }}
+	run: 'dotnet test --filter Category=CHROME'
+	- name: Manual Test
+	if: ${{ github.event.inputs.specflow_tags != '' }}
+	run: 'dotnet test --filter Category=${{ github.event.inputs.specflow_tags }}'
+```
 
 ## Parametrizacao dos testes  ##
 Sao realizadas as parametrizacoes nos arquivos de feature
