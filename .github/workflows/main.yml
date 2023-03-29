@@ -1,4 +1,4 @@
-name: dotnet tests
+name: 'Dotnet Tests'
 
 on:
   workflow_dispatch:
@@ -7,6 +7,9 @@ on:
         description: 'Specflow Tags'
         required: true
         default: 'CHROME'
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -26,5 +29,9 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build
-      - name: Test
+      - name: Automatic commit test
+        if: ${{ github.event.inputs.specflow_tags == '' }}
+        run: 'dotnet test --filter Category=CHROME'
+      - name: Manual Test
+        if: ${{ github.event.inputs.specflow_tags != '' }}
         run: 'dotnet test --filter Category=${{ github.event.inputs.specflow_tags }}'
